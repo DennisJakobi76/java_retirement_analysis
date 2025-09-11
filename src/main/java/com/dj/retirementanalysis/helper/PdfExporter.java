@@ -1,8 +1,6 @@
-package com.dj.retirementanalysis.models;
+package com.dj.retirementanalysis.helper;
 
 import com.dj.retirementanalysis.models.RetirementAnalysis;
-import org.openpdf.text.*;
-import org.openpdf.text.pdf.*;
 import org.openpdf.text.*;
 import org.openpdf.text.Font;
 import org.openpdf.text.Image;
