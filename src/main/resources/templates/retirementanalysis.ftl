@@ -17,7 +17,7 @@
 <body>
 
 <header>
-    <img src="logo.png" alt="Logo" height="50">
+    <img src="/logo.png" alt="Logo" height="50">
 </header>
 
 <h1>Auswertung Altersvorsorge</h1>
@@ -94,6 +94,10 @@
     </tr>
     </tbody>
 </table>
+
+<div style="margin:20px 0;">
+    <img src="/chart.png" alt="Diagramm Altersvorsorge" style="max-width:800px;">
+</div>
 
 <div class="text-container">
     <p>
