@@ -16,6 +16,8 @@ import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.ui.RectangleEdge;
 import org.jfree.chart.event.AnnotationChangeListener;
 import org.jfree.chart.event.AnnotationChangeEvent;
+import org.jfree.chart.annotations.CategoryTextAnnotation;
+import org.jfree.chart.ui.TextAnchor;
 
 
 import java.awt.*;
@@ -235,6 +237,21 @@ public class ChartPngBuilder {
         // Gelbe Linie = Mindestsoll (DIN 77230)
         plot.addAnnotation(new CategoryShortLineAnnotation(J2025, mind25, new Color(253,216,53), solid2, 1.16));
         plot.addAnnotation(new CategoryShortLineAnnotation(J2050, mind50, new Color(253,216,53), solid2, 1.16));
+
+        // Gap-Texte unterhalb der blauen Linie
+        String gap2025Label = "Lücke: " + (int)(richt25 - sum25) + " €";
+        CategoryTextAnnotation gapAnno2025 =
+                new CategoryTextAnnotation(gap2025Label, J2025, richt25 - 30); // 30px unter der Linie
+        gapAnno2025.setFont(new Font("SansSerif", Font.BOLD, 12));
+        gapAnno2025.setTextAnchor(TextAnchor.TOP_CENTER);
+        plot.addAnnotation(gapAnno2025);
+
+        String gap2050Label = "Lücke: " + (int)(richt50 - sum50) + " €";
+        CategoryTextAnnotation gapAnno2050 =
+                new CategoryTextAnnotation(gap2050Label, J2050, richt50 - 30);
+        gapAnno2050.setFont(new Font("SansSerif", Font.BOLD, 12));
+        gapAnno2050.setTextAnchor(TextAnchor.TOP_CENTER);
+        plot.addAnnotation(gapAnno2050);
 
         // PNG schreiben
         ChartUtils.saveChartAsPNG(outFile, chart, 820, 520);
