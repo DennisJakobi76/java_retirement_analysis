@@ -165,7 +165,7 @@ public class ChartPngBuilder {
         // Achse: 100er Schritte
         NumberAxis yAxis = (NumberAxis) plot.getRangeAxis();
         yAxis.setAutoRangeIncludesZero(true);
-        yAxis.setTickUnit(new org.jfree.chart.axis.NumberTickUnit(100));
+        yAxis.setTickUnit(new org.jfree.chart.axis.NumberTickUnit(300));
         yAxis.setNumberFormatOverride(new java.text.DecimalFormat("#,##0"));
 
         // Optik
@@ -178,12 +178,12 @@ public class ChartPngBuilder {
         BasicStroke solid2 = new BasicStroke(2f);
 
         // Blaue Linie = Richtwert
-        plot.addAnnotation(new CategoryShortLineAnnotation(J2025, richt25, new Color(25,118,210), solid2, 0.85));
-        plot.addAnnotation(new CategoryShortLineAnnotation(J2050, richt50, new Color(25,118,210), solid2, 0.85));
+        plot.addAnnotation(new CategoryShortLineAnnotation(J2025, richt25, new Color(25,118,210), solid2, 1.16));
+        plot.addAnnotation(new CategoryShortLineAnnotation(J2050, richt50, new Color(25,118,210), solid2, 1.16));
 
         // Gelbe Linie = Mindestsoll (DIN 77230)
-        plot.addAnnotation(new CategoryShortLineAnnotation(J2025, mind25, new Color(253,216,53), solid2, 0.85));
-        plot.addAnnotation(new CategoryShortLineAnnotation(J2050, mind50, new Color(253,216,53), solid2, 0.85));
+        plot.addAnnotation(new CategoryShortLineAnnotation(J2025, mind25, new Color(253,216,53), solid2, 1.16));
+        plot.addAnnotation(new CategoryShortLineAnnotation(J2050, mind50, new Color(253,216,53), solid2, 1.16));
 
         // PNG schreiben
         ChartUtils.saveChartAsPNG(outFile, chart, 820, 520);
