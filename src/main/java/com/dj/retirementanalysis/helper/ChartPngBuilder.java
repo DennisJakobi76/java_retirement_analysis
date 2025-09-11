@@ -1,8 +1,10 @@
 package com.dj.retirementanalysis.models;
 
+import com.dj.retirementanalysis.helper.CategoryShortLineAnnotation;
+import com.dj.retirementanalysis.helper.NameValueLabelGenerator;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
-import org.jfree.chart.axis.CategoryAxis;
+
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.renderer.category.StackedBarRenderer;
@@ -10,137 +12,24 @@ import org.jfree.chart.ui.RectangleInsets;
 import org.jfree.chart.ChartUtils;
 
 import org.jfree.data.category.DefaultCategoryDataset;
-import org.jfree.chart.annotations.CategoryAnnotation;
-import org.jfree.data.category.CategoryDataset;
-import org.jfree.chart.axis.ValueAxis;
-import org.jfree.chart.ui.RectangleEdge;
-import org.jfree.chart.event.AnnotationChangeListener;
-import org.jfree.chart.event.AnnotationChangeEvent;
+
 import org.jfree.chart.annotations.CategoryTextAnnotation;
 import org.jfree.chart.ui.TextAnchor;
 
 
 import java.awt.*;
-import java.awt.geom.Rectangle2D;
 import java.io.File;
 
-import org.jfree.chart.labels.CategoryItemLabelGenerator;
-import org.jfree.data.category.CategoryDataset;
 
 public class ChartPngBuilder {
 
 
 
 
-    public static class NameValueLabelGenerator implements CategoryItemLabelGenerator {
-
-        private final double total2025;
-        private final double total2050;
-
-        public NameValueLabelGenerator(double total2025, double total2050) {
-            this.total2025 = total2025;
-            this.total2050 = total2050;
-        }
-
-        @Override
-        public String generateRowLabel(CategoryDataset dataset, int row) {
-            return dataset.getRowKey(row).toString();
-        }
-
-        @Override
-        public String generateColumnLabel(CategoryDataset dataset, int column) {
-            return dataset.getColumnKey(column).toString();
-        }
-
-        @Override
-        public String generateLabel(CategoryDataset dataset, int row, int column) {
-            String name = dataset.getRowKey(row).toString();
-            Number value = dataset.getValue(row, column);
-
-            // Für Netto-Einkommen Sonderlogik
-            if ("Netto-Einkommen".equals(name)) {
-                if ("2025".equals(dataset.getColumnKey(column).toString())) {
-                    return "Netto-Einkommen: " + (int) total2025;
-                } else {
-                    return "Netto-Einkommen: " + (int) total2050;
-                }
-            }
-
-            return name + ": " + (value != null ? value.intValue() : "");
-        }
-    }
 
 
-    // Kleine Annotation-Klasse für "kurze Linie im jeweiligen Jahr"
-    public static class CategoryShortLineAnnotation implements CategoryAnnotation {
-        private final Comparable<?> category;
-        private final double y;
-        private final Paint paint;
-        private final Stroke stroke;
-        // Anteil der Kategorienbreite (0..1), z. B. 0.85 = 85% der Breite
-        private final double widthFraction;
-
-        public CategoryShortLineAnnotation(Comparable<?> category, double y,
-                                           Paint paint, Stroke stroke, double widthFraction) {
-            this.category = category;
-            this.y = y;
-            this.paint = paint;
-            this.stroke = stroke;
-            this.widthFraction = widthFraction;
-        }
-
-        @Override
-        public void addChangeListener(AnnotationChangeListener listener) {
-            // keine Listener-Unterstützung nötig
-        }
-
-        @Override
-        public void removeChangeListener(AnnotationChangeListener listener) {
-            // keine Listener-Unterstützung nötig
-        }
 
 
-        @Override
-        public void draw(Graphics2D g2,
-                         CategoryPlot plot,
-                         Rectangle2D dataArea,
-                         CategoryAxis domainAxis,
-                         ValueAxis rangeAxis) {
-
-            CategoryDataset dataset = plot.getDataset();
-            if (dataset == null) return;
-
-            int colIdx = dataset.getColumnIndex(category);
-            if (colIdx < 0) return;
-
-            int colCount = dataset.getColumnCount();
-
-            double xMid = domainAxis.getCategoryMiddle(
-                    colIdx, colCount, dataArea, plot.getDomainAxisEdge()
-            );
-            double catStart = domainAxis.getCategoryStart(
-                    colIdx, colCount, dataArea, plot.getDomainAxisEdge()
-            );
-            double catEnd = domainAxis.getCategoryEnd(
-                    colIdx, colCount, dataArea, plot.getDomainAxisEdge()
-            );
-            double halfLen = (catEnd - catStart) * widthFraction / 2.0;
-
-            double xx1 = xMid - halfLen;
-            double xx2 = xMid + halfLen;
-            double yy  = rangeAxis.valueToJava2D(y, dataArea, plot.getRangeAxisEdge());
-
-            Stroke oldS = g2.getStroke();
-            Paint  oldP = g2.getPaint();
-
-            g2.setPaint(paint);
-            g2.setStroke(stroke);
-            g2.draw(new java.awt.geom.Line2D.Double(xx1, yy, xx2, yy));
-
-            g2.setPaint(oldP);
-            g2.setStroke(oldS);
-        }
-    }
 
     public static void buildPng(
             // Eingaben aus deinem Modell
