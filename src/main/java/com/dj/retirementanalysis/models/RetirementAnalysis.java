@@ -147,4 +147,13 @@ public class RetirementAnalysis {
         return targetValueProjection; // wird eh schon berechnet
     }
 
+    public double getTotalCurrent() {
+        return statutoryPension + otherIncome + occupationalPension + privatePension;
+    }
+
+    public double getTotalProjection() {
+        return statutoryPensionProjection + otherIncomeProjection + occupationalPensionProjection + privatePensionProjection;
+    }
+
+
 }
