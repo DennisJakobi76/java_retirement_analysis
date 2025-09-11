@@ -83,7 +83,7 @@
         <td>${analysis.targetValueProjection?string["#,##0.00"]}</td>
     </tr>
     <tr>
-        <td><b>DIN 77230 Mindestsoll</b></td>
+        <td><b>Mindestsoll</b></td>
         <td>${analysis.minTargetCurrent?string["#,##0.00"]}</td>
         <td>${analysis.minTargetProjection?string["#,##0.00"]}</td>
     </tr>

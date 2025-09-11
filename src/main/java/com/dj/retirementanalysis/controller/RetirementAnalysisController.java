@@ -1,20 +1,21 @@
 package com.dj.retirementanalysis.controller;
 
+import com.dj.retirementanalysis.models.ChartPngBuilder;
 import com.dj.retirementanalysis.models.RetirementAnalysis;
-import org.knowm.xchart.*;
-import org.knowm.xchart.style.Styler;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
+
 
 @Controller
 public class RetirementAnalysisController {
 
     @GetMapping("/analysis")
-    public String getAnalysis(Model model) throws IOException {
+    public String getAnalysis(Model model) throws Exception {
 
         RetirementAnalysis analysis = new RetirementAnalysis(
                 2025, 2050,
@@ -26,44 +27,20 @@ public class RetirementAnalysisController {
         );
         analysis.calculateAll(12.41, 8, 21);
 
-        // Chart bauen
-        CategoryChart chart = new CategoryChartBuilder()
-                .width(800).height(400)
-                .title("Altersvorsorge: 2025 vs. 2050")
-                .xAxisTitle("Kategorie")
-                .yAxisTitle("€ / Monat")
-                .build();
-
-        chart.getStyler().setLegendPosition(Styler.LegendPosition.InsideNW);
-        chart.getStyler().setDecimalPattern("#,##0");
-
-        var categories = Arrays.asList(
-                "Gesetzliche Rente",
-                "Sonstige Einnahmen",
-                "Betriebliche Vorsorge",
-                "Private Vorsorge"
+        // Beispielwerte aus deinem Modell (hier nur demonstrativ)
+        File out = new File("src/main/resources/static/chart.png");
+        ChartPngBuilder.buildPng(
+                analysis.getStatutoryPension(), analysis.getOtherIncome(), analysis.getOccupationalPension(), analysis.getPrivatePension(),
+                analysis.getStatutoryPensionProjection(), analysis.getOtherIncomeProjection(), analysis.getOccupationalPensionProjection(), analysis.getPrivatePensionProjection(),
+                analysis.getNetMonthlyIncome(), analysis.getNetMonthlyIncomeProjection(),   // falls du Getter gebaut hast; sonst selbst berechnen
+                analysis.getTargetValue(), analysis.getTargetValueProjection(),
+                analysis.getMinTargetCurrent(), analysis.getMinTargetProjection(),
+                out
         );
-
-        chart.addSeries("2025", categories, Arrays.asList(
-                analysis.getStatutoryPension(),
-                analysis.getOtherIncome(),
-                analysis.getOccupationalPension(),
-                analysis.getPrivatePension()
-        ));
-
-        chart.addSeries("2050", categories, Arrays.asList(
-                analysis.getStatutoryPensionProjection(),
-                analysis.getOtherIncomeProjection(),
-                analysis.getOccupationalPensionProjection(),
-                analysis.getPrivatePensionProjection()
-        ));
-
-        // In /static speichern
-        BitmapEncoder.saveBitmap(chart,
-                "src/main/resources/static/chart",
-                BitmapEncoder.BitmapFormat.PNG);
-
         model.addAttribute("analysis", analysis);
         return "retirementanalysis"; // FTL
     }
+
+
+
 }
