@@ -18,16 +18,56 @@ import org.jfree.chart.event.AnnotationChangeListener;
 import org.jfree.chart.event.AnnotationChangeEvent;
 
 
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.Paint;
-import java.awt.Stroke;
+import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.io.File;
 
+import org.jfree.chart.labels.CategoryItemLabelGenerator;
+import org.jfree.data.category.CategoryDataset;
 
 public class ChartPngBuilder {
+
+
+
+
+    public static class NameValueLabelGenerator implements CategoryItemLabelGenerator {
+
+        private final double total2025;
+        private final double total2050;
+
+        public NameValueLabelGenerator(double total2025, double total2050) {
+            this.total2025 = total2025;
+            this.total2050 = total2050;
+        }
+
+        @Override
+        public String generateRowLabel(CategoryDataset dataset, int row) {
+            return dataset.getRowKey(row).toString();
+        }
+
+        @Override
+        public String generateColumnLabel(CategoryDataset dataset, int column) {
+            return dataset.getColumnKey(column).toString();
+        }
+
+        @Override
+        public String generateLabel(CategoryDataset dataset, int row, int column) {
+            String name = dataset.getRowKey(row).toString();
+            Number value = dataset.getValue(row, column);
+
+            // Für Netto-Einkommen Sonderlogik
+            if ("Netto-Einkommen".equals(name)) {
+                if ("2025".equals(dataset.getColumnKey(column).toString())) {
+                    return "Netto-Einkommen: " + (int) total2025;
+                } else {
+                    return "Netto-Einkommen: " + (int) total2050;
+                }
+            }
+
+            return name + ": " + (value != null ? value.intValue() : "");
+        }
+    }
+
 
     // Kleine Annotation-Klasse für "kurze Linie im jeweiligen Jahr"
     public static class CategoryShortLineAnnotation implements CategoryAnnotation {
@@ -56,11 +96,6 @@ public class ChartPngBuilder {
         public void removeChangeListener(AnnotationChangeListener listener) {
             // keine Listener-Unterstützung nötig
         }
-
-//        @Override
-//        public void fireAnnotationChanged() {
-//            // nichts zu tun
-//        }
 
 
         @Override
@@ -154,6 +189,22 @@ public class ChartPngBuilder {
         r.setShadowVisible(false);
         r.setDefaultItemLabelsVisible(false); // erstmal ohne Beschriftungen
         r.setDrawBarOutline(false);
+
+        // === HIER: Labels aktivieren ===
+
+        double total2025 = sum25 + cap25;
+        double total2050 = sum50 + cap50;
+        
+        r.setDefaultItemLabelGenerator(new NameValueLabelGenerator(total2025, total2050));
+        r.setDefaultItemLabelsVisible(true);
+        r.setDefaultItemLabelFont(new Font("SansSerif", Font.PLAIN, 12));
+        r.setDefaultItemLabelPaint(Color.BLACK);
+        r.setDefaultPositiveItemLabelPosition(
+                new org.jfree.chart.labels.ItemLabelPosition(
+                        org.jfree.chart.labels.ItemLabelAnchor.CENTER,
+                        org.jfree.chart.ui.TextAnchor.CENTER
+                )
+        );
 
         // Farben wie in deiner JS-Lösung (Grün-Töne)
         r.setSeriesPaint(bars.getRowIndex("Gesetzliche Rente"), new Color(44, 160, 44));
