@@ -1,7 +1,5 @@
-package com.dj.retirementanalysis.models;
+package com.dj.retirementanalysis.helper;
 
-import com.dj.retirementanalysis.helper.CategoryShortLineAnnotation;
-import com.dj.retirementanalysis.helper.NameValueLabelGenerator;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
 
@@ -22,15 +20,7 @@ import java.io.File;
 
 
 public class ChartPngBuilder {
-
-
-
-
-
-
-
-
-
+    
     public static void buildPng(
             // Eingaben aus deinem Modell
             double gesetzlich25, double sonstige25, double betrieblich25, double privat25,

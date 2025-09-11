@@ -1,7 +1,7 @@
 package com.dj.retirementanalysis.controller;
 
-import com.dj.retirementanalysis.models.ChartPngBuilder;
-import com.dj.retirementanalysis.models.PdfExporter;
+import com.dj.retirementanalysis.helper.ChartPngBuilder;
+import com.dj.retirementanalysis.helper.PdfExporter;
 import com.dj.retirementanalysis.models.RetirementAnalysis;
 
 import jakarta.servlet.http.HttpServletResponse;
@@ -10,7 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.io.File;
-import java.io.IOException;
 
 
 @Controller
