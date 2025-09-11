@@ -194,7 +194,7 @@ public class ChartPngBuilder {
 
         double total2025 = sum25 + cap25;
         double total2050 = sum50 + cap50;
-        
+
         r.setDefaultItemLabelGenerator(new NameValueLabelGenerator(total2025, total2050));
         r.setDefaultItemLabelsVisible(true);
         r.setDefaultItemLabelFont(new Font("SansSerif", Font.PLAIN, 12));
