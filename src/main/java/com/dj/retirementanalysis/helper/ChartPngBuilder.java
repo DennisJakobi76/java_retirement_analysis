@@ -20,7 +20,7 @@ import java.io.File;
 
 
 public class ChartPngBuilder {
-    
+
     public static void buildPng(
             // Eingaben aus deinem Modell
             double gesetzlich25, double sonstige25, double betrieblich25, double privat25,
