@@ -4,12 +4,20 @@ import com.dj.retirementanalysis.helper.ChartPngBuilder;
 import com.dj.retirementanalysis.helper.PdfExporter;
 import com.dj.retirementanalysis.models.RetirementAnalysis;
 
+import com.openhtmltopdf.pdfboxout.PdfRendererBuilder;
+
+import freemarker.template.Template;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.io.File;
+import java.io.OutputStream;
+import java.io.StringWriter;
+import java.util.HashMap;
+import java.util.Map;
 
 
 @Controller
@@ -47,24 +55,53 @@ public class RetirementAnalysisController {
     }
 
 
+    @Autowired
+    private freemarker.template.Configuration freemarkerConfig;
+
     @GetMapping("/analysis/pdf")
     public void getAnalysisPdf(HttpServletResponse response) throws Exception {
 
-        File chartFile = new File("src/main/resources/static/chart.png");
-        // PDF erzeugen
-        File pdfFile = File.createTempFile("altersvorsorge", ".pdf");
-        // Tabelle aus analysis holen, z.B. als List<Map<String, Object>>
-        var tableData = analysis.getTableData();
+//        File chartFile = new File("src/main/resources/static/chart.png");
+//        // PDF erzeugen
+//        File pdfFile = File.createTempFile("altersvorsorge", ".pdf");
+//        // Tabelle aus analysis holen, z.B. als List<Map<String, Object>>
+//        var tableData = analysis.getTableData();
+//
+//        PdfExporter.exportRetirementAnalysisPdf(analysis, pdfFile, chartFile, tableData);
+//
+//        // PDF an Browser senden
+//        response.setContentType("application/pdf");
+//        response.setHeader("Content-Disposition", "inline; filename=altersvorsorge.pdf");
+//        try (java.io.FileInputStream fis = new java.io.FileInputStream(pdfFile);
+//             java.io.OutputStream os = response.getOutputStream()) {
+//            fis.transferTo(os);
+//        }
 
-        PdfExporter.exportRetirementAnalysisPdf(analysis, pdfFile, chartFile, tableData);
+        // Modell wie bei der Browseransicht
+        Map<String, Object> model = new HashMap<>();
+        model.put("analysis", analysis);
 
-        // PDF an Browser senden
+        // FTL-Template laden und rendern
+        Template template = freemarkerConfig.getTemplate("retirementanalysis.ftl");
+        StringWriter stringWriter = new StringWriter();
+        template.process(model, stringWriter);
+        String html = stringWriter.toString();
+
+        // PDF im Browser anzeigen
         response.setContentType("application/pdf");
         response.setHeader("Content-Disposition", "inline; filename=altersvorsorge.pdf");
-        try (java.io.FileInputStream fis = new java.io.FileInputStream(pdfFile);
-             java.io.OutputStream os = response.getOutputStream()) {
-            fis.transferTo(os);
-        }
-    }
 
+        try (OutputStream os = response.getOutputStream()) {
+            PdfRendererBuilder builder = new PdfRendererBuilder();
+            builder.useFastMode();
+
+            // Base-URL für Bilder und CSS
+            String baseUrl = new File("src/main/resources/static/").toURI().toURL().toString();
+            builder.withHtmlContent(html, baseUrl);
+
+            builder.toStream(os);
+            builder.run();
+        }
+
+    }
 }
