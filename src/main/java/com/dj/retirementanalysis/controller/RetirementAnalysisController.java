@@ -15,10 +15,10 @@ import java.io.File;
 @Controller
 public class RetirementAnalysisController {
 
-    @GetMapping("/analysis")
-    public String getAnalysis(Model model) throws Exception {
+    private RetirementAnalysis analysis;
 
-        RetirementAnalysis analysis = new RetirementAnalysis(
+    public RetirementAnalysisController() {
+        this.analysis = new RetirementAnalysis(
                 2025, 2050,
                 4000,   // Brutto pro Monat
                 1450,   // gesetzliche Rente
@@ -26,7 +26,11 @@ public class RetirementAnalysisController {
                 300,    // betriebliche Vorsorge
                 50      // private Vorsorge
         );
-        analysis.calculateAll(12.41, 8, 21);
+        this.analysis.calculateAll(12.41, 8, 21);
+    }
+
+    @GetMapping("/analysis")
+    public String getAnalysis(Model model) throws Exception {
 
         // Beispielwerte aus deinem Modell (hier nur demonstrativ)
         File out = new File("src/main/resources/static/chart.png");
@@ -45,32 +49,14 @@ public class RetirementAnalysisController {
 
     @GetMapping("/analysis/pdf")
     public void getAnalysisPdf(HttpServletResponse response) throws Exception {
-        // 👉 Beispielwerte oder echte Werte berechnen:
-        RetirementAnalysis analysis = new RetirementAnalysis(
-                2025, 2050,
-                4000,   // Brutto pro Monat
-                1450,   // gesetzliche Rente
-                400,    // sonstige Einnahmen
-                300,    // betriebliche Vorsorge
-                50      // private Vorsorge
-        );
 
-        // Chart erzeugen (temporär speichern)
-        File chartFile = File.createTempFile("chart", ".png");
-        ChartPngBuilder.buildPng(
-                analysis.getStatutoryPension(), analysis.getOtherIncome(),
-                analysis.getOccupationalPension(), analysis.getPrivatePension(),
-                analysis.getStatutoryPensionProjection(), analysis.getOtherIncomeProjection(),
-                analysis.getOccupationalPensionProjection(), analysis.getPrivatePensionProjection(),
-                analysis.getNetMonthlyIncome(), analysis.getNetMonthlyIncomeProjection(),
-                analysis.getTargetValue(), analysis.getTargetValueProjection(),
-                analysis.getMinTargetCurrent(), analysis.getMinTargetProjection(),
-                chartFile
-        );
-
+        File chartFile = new File("src/main/resources/static/chart.png");
         // PDF erzeugen
         File pdfFile = File.createTempFile("altersvorsorge", ".pdf");
-        PdfExporter.exportRetirementAnalysisPdf(analysis, pdfFile, chartFile);
+        // Tabelle aus analysis holen, z.B. als List<Map<String, Object>>
+        var tableData = analysis.getTableData();
+
+        PdfExporter.exportRetirementAnalysisPdf(analysis, pdfFile, chartFile, tableData);
 
         // PDF an Browser senden
         response.setContentType("application/pdf");
