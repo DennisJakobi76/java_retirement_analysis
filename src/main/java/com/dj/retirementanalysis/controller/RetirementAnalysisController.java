@@ -27,11 +27,11 @@ public class RetirementAnalysisController {
     public RetirementAnalysisController() {
         this.analysis = new RetirementAnalysis(
                 2025, 2050,
-                4000,   // Brutto pro Monat
+                4800,   // Brutto pro Monat
                 1450,   // gesetzliche Rente
-                400,    // sonstige Einnahmen
-                300,    // betriebliche Vorsorge
-                50      // private Vorsorge
+                540,    // sonstige Einnahmen
+                400,    // betriebliche Vorsorge
+                250      // private Vorsorge
         );
         this.analysis.calculateAll(12.41, 8, 21);
     }
@@ -39,7 +39,6 @@ public class RetirementAnalysisController {
     @GetMapping("/analysis")
     public String getAnalysis(Model model) throws Exception {
 
-        // Beispielwerte aus deinem Modell (hier nur demonstrativ)
         File out = new File("src/main/resources/static/chart.png");
         ChartPngBuilder.buildPng(
                 analysis.getStatutoryPension(), analysis.getOtherIncome(), analysis.getOccupationalPension(), analysis.getPrivatePension(),
@@ -60,17 +59,14 @@ public class RetirementAnalysisController {
     @GetMapping("/analysis/pdf")
     public void getAnalysisPdf(HttpServletResponse response) throws Exception {
 
-        // Modell wie bei der Browseransicht
         Map<String, Object> model = new HashMap<>();
         model.put("analysis", analysis);
 
-        // FTL-Template laden und rendern
         Template template = freemarkerConfig.getTemplate("retirementanalysis.ftl");
         StringWriter stringWriter = new StringWriter();
         template.process(model, stringWriter);
         String html = stringWriter.toString();
 
-        // PDF im Browser anzeigen
         response.setContentType("application/pdf");
         response.setHeader("Content-Disposition", "inline; filename=auswertung_vorsorge.pdf");
 
@@ -78,7 +74,6 @@ public class RetirementAnalysisController {
             PdfRendererBuilder builder = new PdfRendererBuilder();
             builder.useFastMode();
 
-            // Base-URL für Bilder und CSS
             String baseUrl = new File("src/main/resources/static/").toURI().toURL().toString();
             builder.withHtmlContent(html, baseUrl);
 
