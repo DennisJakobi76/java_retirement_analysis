@@ -44,6 +44,12 @@
             color: #ffffff;
         }
 
+        .text-container{
+            max-width: 60%;
+            margin: 0 auto 20px auto;
+            text-align: justify;
+        }
+
         tr:nth-child(even) {
             background-color: #f2f2f2;
         }
@@ -57,6 +63,7 @@
         img.chart {
             max-width: 100%;
             height: auto;
+            margin: 0 auto;
             display: block;
         }
 
