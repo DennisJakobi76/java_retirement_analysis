@@ -62,12 +62,12 @@
 
         @page {
             size: A4 portrait;
-            margin: -20mm 8mm 8mm 8mm;
+            margin: -15mm 8mm 8mm 8mm;
         }
 
         @media print {
             body {
-                font-size: 16px;
+                font-size: 13px;
                 margin: 0;
                 transform: scale(0.85);
                 transform-origin: top left;
@@ -83,7 +83,7 @@
             h1 {
                 font-size: 14pt;
                 margin-bottom: 12px;
-                margin-top: 0;
+                margin-top: 24px;
             }
 
             p {
@@ -111,7 +111,8 @@
             }
 
             .canvas-container {
-                margin: 0 auto;
+
+                margin: 0  auto 25px  auto;
                 padding-top: 1px;
                 text-align: center;
                 overflow: hidden;
@@ -221,7 +222,7 @@
         <p>
             Aus der Gegenüberstellung ergibt sich eine Versorgungslücke:
             Trotz solider Basis durch die gesetzliche Rente und sonstige Einnahmen reichen die betrieblichen
-            und privaten Vorsorgeleistungen aktuell nicht aus, um den&#160;Richtwert vollständig zu erreichen.
+            und privaten Vorsorgeleistungen aktuell nicht aus, um den Richtwert vollständig zu erreichen.
             Die Lücke beträgt im Jahr ${analysis.analysisYear} rund ${analysis.gapCurrent?string["#,##0"]}&#8239;&#8364;,
             im Jahr ${analysis.projectionYear} – inflationsbedingt – etwa ${analysis.gapProjection?string["#,##0"]}&#8239;&#8364;.
             Eine gezielte Stärkung der betrieblichen und privaten Vorsorge ist daher empfehlenswert.
