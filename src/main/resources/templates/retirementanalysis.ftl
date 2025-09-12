@@ -2,7 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="de" lang="de">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <title>Altersvorsorge One-Pager</title>
+    <title>Auswertung Vorsorge</title>
+    <link rel="icon" type="image/png" href="logo.png"/>
     <style type="text/css">
         body {
             font-family: Helvetica, sans-serif;

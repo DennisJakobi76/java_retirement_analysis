@@ -60,22 +60,6 @@ public class RetirementAnalysisController {
     @GetMapping("/analysis/pdf")
     public void getAnalysisPdf(HttpServletResponse response) throws Exception {
 
-//        File chartFile = new File("src/main/resources/static/chart.png");
-//        // PDF erzeugen
-//        File pdfFile = File.createTempFile("altersvorsorge", ".pdf");
-//        // Tabelle aus analysis holen, z.B. als List<Map<String, Object>>
-//        var tableData = analysis.getTableData();
-//
-//        PdfExporter.exportRetirementAnalysisPdf(analysis, pdfFile, chartFile, tableData);
-//
-//        // PDF an Browser senden
-//        response.setContentType("application/pdf");
-//        response.setHeader("Content-Disposition", "inline; filename=altersvorsorge.pdf");
-//        try (java.io.FileInputStream fis = new java.io.FileInputStream(pdfFile);
-//             java.io.OutputStream os = response.getOutputStream()) {
-//            fis.transferTo(os);
-//        }
-
         // Modell wie bei der Browseransicht
         Map<String, Object> model = new HashMap<>();
         model.put("analysis", analysis);
@@ -88,7 +72,7 @@ public class RetirementAnalysisController {
 
         // PDF im Browser anzeigen
         response.setContentType("application/pdf");
-        response.setHeader("Content-Disposition", "inline; filename=altersvorsorge.pdf");
+        response.setHeader("Content-Disposition", "inline; filename=auswertung_vorsorge.pdf");
 
         try (OutputStream os = response.getOutputStream()) {
             PdfRendererBuilder builder = new PdfRendererBuilder();
