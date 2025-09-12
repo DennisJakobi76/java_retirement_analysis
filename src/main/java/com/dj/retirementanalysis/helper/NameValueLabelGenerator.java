@@ -29,7 +29,6 @@ public class NameValueLabelGenerator implements CategoryItemLabelGenerator {
         String name = dataset.getRowKey(row).toString();
         Number value = dataset.getValue(row, column);
 
-        // Für Netto-Einkommen Sonderlogik
         if ("Netto-Einkommen".equals(name)) {
             if ("2025".equals(dataset.getColumnKey(column).toString())) {
                 return "Netto-Einkommen: " + (int) total2025;

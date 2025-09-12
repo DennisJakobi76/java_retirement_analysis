@@ -10,13 +10,12 @@ import org.jfree.data.category.CategoryDataset;
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 
-// Kleine Annotation-Klasse für "kurze Linie im jeweiligen Jahr"
 public class CategoryShortLineAnnotation implements CategoryAnnotation {
     private final Comparable<?> category;
     private final double y;
     private final Paint paint;
     private final Stroke stroke;
-    // Anteil der Kategorienbreite (0..1), z. B. 0.85 = 85% der Breite
+
     private final double widthFraction;
 
     public CategoryShortLineAnnotation(Comparable<?> category, double y,
