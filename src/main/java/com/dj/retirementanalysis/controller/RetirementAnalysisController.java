@@ -24,12 +24,15 @@ import java.util.Map;
 @Controller
 public class RetirementAnalysisController {
 
-    private final RetirementAnalysis analysisMaxMustermann;
-    private final RetirementAnalysis analysisMaximeMustermann;
     private final List<RetirementAnalysis> analyses = new ArrayList<>();
 
     public RetirementAnalysisController() {
-        this.analysisMaxMustermann = new RetirementAnalysis(
+        // Brutto pro Monat
+        // gesetzliche Rente
+        // sonstige Einnahmen
+        // betriebliche Vorsorge
+        // private Vorsorge
+        RetirementAnalysis analysisMaxMustermann = new RetirementAnalysis(
                 "Max Mustermann",
                 2025, 2050,
                 4800,   // Brutto pro Monat
@@ -38,9 +41,14 @@ public class RetirementAnalysisController {
                 400,    // betriebliche Vorsorge
                 250      // private Vorsorge
         );
-        this.analysisMaxMustermann.calculateAll(12.41, 8, 21);
+        analysisMaxMustermann.calculateAll(12.41, 8, 21);
 
-        this.analysisMaximeMustermann = new RetirementAnalysis(
+        // Brutto pro Monat
+        // gesetzliche Rente
+        // sonstige Einnahmen
+        // betriebliche Vorsorge
+        // private Vorsorge
+        RetirementAnalysis analysisMaximeMustermann = new RetirementAnalysis(
                 "Maxime Mustermann",
                 2025, 2050,
                 5300,   // Brutto pro Monat
@@ -49,12 +57,11 @@ public class RetirementAnalysisController {
                 500,    // betriebliche Vorsorge
                 400     // private Vorsorge
         );
-        this.analysisMaximeMustermann.calculateAll(12.41, 8, 21);
+        analysisMaximeMustermann.calculateAll(12.41, 8, 21);
 
         analyses.add(analysisMaxMustermann);
         analyses.add(analysisMaximeMustermann);
 
-        // Im Konstruktor nach den Einzelanalysen:
         if (analyses.size() > 1) {
             RetirementAnalysis combinedAnalysis = new RetirementAnalysis(
                 "Gemeinsamer Haushalt",
@@ -93,12 +100,36 @@ public class RetirementAnalysisController {
     @Autowired
     private freemarker.template.Configuration freemarkerConfig;
 
+//    @GetMapping("/analysis/pdf")
+//    public void getAnalysisPdf(HttpServletResponse response) throws Exception {
+//
+//        Map<String, Object> model = new HashMap<>();
+//        model.put("analysis", analysisMaxMustermann);
+//
+//        Template template = freemarkerConfig.getTemplate("retirementanalysis.ftl");
+//        StringWriter stringWriter = new StringWriter();
+//        template.process(model, stringWriter);
+//        String html = stringWriter.toString();
+//
+//        response.setContentType("application/pdf");
+//        response.setHeader("Content-Disposition", "inline; filename=auswertung_vorsorge.pdf");
+//
+//        try (OutputStream os = response.getOutputStream()) {
+//            PdfRendererBuilder builder = new PdfRendererBuilder();
+//            builder.useFastMode();
+//
+//            String baseUrl = new File("src/main/resources/static/").toURI().toURL().toString();
+//            builder.withHtmlContent(html, baseUrl);
+//
+//            builder.toStream(os);
+//            builder.run();
+//        }
+// }
     @GetMapping("/analysis/pdf")
     public void getAnalysisPdf(HttpServletResponse response) throws Exception {
-
         Map<String, Object> model = new HashMap<>();
-        model.put("analysis", analysisMaxMustermann);
-
+        model.put("analyses", analyses);
+        String path = analyses.getFirst().getFilePath();
         Template template = freemarkerConfig.getTemplate("retirementanalysis.ftl");
         StringWriter stringWriter = new StringWriter();
         template.process(model, stringWriter);
@@ -111,12 +142,11 @@ public class RetirementAnalysisController {
             PdfRendererBuilder builder = new PdfRendererBuilder();
             builder.useFastMode();
 
-            String baseUrl = new File("src/main/resources/static/").toURI().toURL().toString();
+            String baseUrl = new File(path).toURI().toURL().toString();
             builder.withHtmlContent(html, baseUrl);
 
             builder.toStream(os);
             builder.run();
         }
-
     }
 }
