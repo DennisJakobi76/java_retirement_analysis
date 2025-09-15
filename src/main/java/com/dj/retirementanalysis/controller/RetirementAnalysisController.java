@@ -43,9 +43,8 @@ public class RetirementAnalysisController {
         ChartPngBuilder.buildPng(
                 analysis.getStatutoryPension(), analysis.getOtherIncome(), analysis.getOccupationalPension(), analysis.getPrivatePension(),
                 analysis.getStatutoryPensionProjection(), analysis.getOtherIncomeProjection(), analysis.getOccupationalPensionProjection(), analysis.getPrivatePensionProjection(),
-                analysis.getNetMonthlyIncome(), analysis.getNetMonthlyIncomeProjection(),   // falls du Getter gebaut hast; sonst selbst berechnen
-                analysis.getTargetValue(), analysis.getTargetValueProjection(),
-                analysis.getMinTargetCurrent(), analysis.getMinTargetProjection(),
+                analysis.getNetMonthlyIncome(), analysis.getNetMonthlyIncomeProjection(),
+                analysis.getTargetValueProjection(), analysis.getMinTargetProjection(),
                 out
         );
         model.addAttribute("analysis", analysis);

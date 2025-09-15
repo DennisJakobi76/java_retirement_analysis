@@ -2,18 +2,14 @@ package com.dj.retirementanalysis.helper;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
-
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.renderer.category.StackedBarRenderer;
 import org.jfree.chart.ui.RectangleInsets;
 import org.jfree.chart.ChartUtils;
-
 import org.jfree.data.category.DefaultCategoryDataset;
-
 import org.jfree.chart.annotations.CategoryTextAnnotation;
 import org.jfree.chart.ui.TextAnchor;
-
 
 import java.awt.*;
 import java.io.File;
@@ -24,9 +20,7 @@ public class ChartPngBuilder {
     public static void buildPng(
             double gesetzlich25, double sonstige25, double betrieblich25, double privat25,
             double gesetzlich50, double sonstige50, double betrieblich50, double privat50,
-            double netto25, double netto50,
-            double richt25, double richt50,
-            double mind25,  double mind50,
+            double netto25, double netto50, double richt50, double mind50,
             File outFile
     ) throws Exception {
 

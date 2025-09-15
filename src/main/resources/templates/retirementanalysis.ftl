@@ -210,12 +210,10 @@
             </tr>
             <tr>
                 <td><b>Mindestsoll</b></td>
-                <td>${analysis.minTargetCurrent?string["#,##0.00"]}&#160;&#8364;</td>
                 <td>${analysis.minTargetProjection?string["#,##0.00"]}&#160;&#8364;</td>
             </tr>
             <tr>
                 <td><b>Versorgungslücke</b></td>
-                <td>${analysis.gapCurrent?string["#,##0.00"]}&#160;&#8364;</td>
                 <td>${analysis.gapProjection?string["#,##0.00"]}&#160;&#8364;</td>
             </tr>
             </tbody>
@@ -231,8 +229,7 @@
             Aus der Gegenüberstellung ergibt sich eine Versorgungslücke:
             Trotz solider Basis durch die gesetzliche Rente und sonstige Einnahmen reichen die betrieblichen
             und privaten Vorsorgeleistungen aktuell nicht aus, um den Richtwert vollständig zu erreichen.
-            Die Lücke beträgt im Jahr ${analysis.analysisYear?string["0"]} rund ${analysis.gapCurrent?string["#,##0"]}&#8239;&#8364;,
-            im Jahr ${analysis.projectionYear?string["0"]} – inflationsbedingt – etwa ${analysis.gapProjection?string["#,##0"]}&#8239;&#8364;.
+            Die Lücke beträgt im Jahr ${analysis.projectionYear?string["0"]} – inflationsbedingt – etwa ${analysis.gapProjection?string["#,##0"]}&#8239;&#8364;.
             Eine gezielte Stärkung der betrieblichen und privaten Vorsorge ist daher empfehlenswert.
         </p>
 
