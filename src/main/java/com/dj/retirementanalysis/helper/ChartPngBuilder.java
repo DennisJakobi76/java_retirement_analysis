@@ -22,7 +22,6 @@ import java.io.File;
 public class ChartPngBuilder {
 
     public static void buildPng(
-
             double gesetzlich25, double sonstige25, double betrieblich25, double privat25,
             double gesetzlich50, double sonstige50, double betrieblich50, double privat50,
             double netto25, double netto50,
@@ -98,18 +97,18 @@ public class ChartPngBuilder {
 
         BasicStroke solid2 = new BasicStroke(2f);
 
-        plot.addAnnotation(new CategoryShortLineAnnotation(J2025, richt25, new Color(25,118,210), solid2, 1.16));
+//        plot.addAnnotation(new CategoryShortLineAnnotation(J2025, richt25, new Color(25,118,210), solid2, 1.16));
         plot.addAnnotation(new CategoryShortLineAnnotation(J2050, richt50, new Color(25,118,210), solid2, 1.16));
 
-        plot.addAnnotation(new CategoryShortLineAnnotation(J2025, mind25, new Color(253,216,53), solid2, 1.16));
+//        plot.addAnnotation(new CategoryShortLineAnnotation(J2025, mind25, new Color(253,216,53), solid2, 1.16));
         plot.addAnnotation(new CategoryShortLineAnnotation(J2050, mind50, new Color(253,216,53), solid2, 1.16));
 
-        String gap2025Label = "Lücke: " + (int)(richt25 - sum25) + " €";
-        CategoryTextAnnotation gapAnno2025 =
-                new CategoryTextAnnotation(gap2025Label, J2025, richt25 - 1);
-        gapAnno2025.setFont(new Font("SansSerif", Font.BOLD, 12));
-        gapAnno2025.setTextAnchor(TextAnchor.TOP_CENTER);
-        plot.addAnnotation(gapAnno2025);
+//        String gap2025Label = "Lücke: " + (int)(richt25 - sum25) + " €";
+//        CategoryTextAnnotation gapAnno2025 =
+//                new CategoryTextAnnotation(gap2025Label, J2025, richt25 - 1);
+//        gapAnno2025.setFont(new Font("SansSerif", Font.BOLD, 12));
+//        gapAnno2025.setTextAnchor(TextAnchor.TOP_CENTER);
+//        plot.addAnnotation(gapAnno2025);
 
         String gap2050Label = "Lücke: " + (int)(richt50 - sum50) + " €";
         CategoryTextAnnotation gapAnno2050 =
