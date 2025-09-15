@@ -205,15 +205,17 @@
             </tr>
             <tr>
                 <td><b>Richtwert (80% Netto)</b></td>
-                <td>${analysis.targetValue?string["#,##0.00"]}&#160;&#8364;</td>
+                <td></td>
                 <td>${analysis.targetValueProjection?string["#,##0.00"]}&#160;&#8364;</td>
             </tr>
             <tr>
                 <td><b>Mindestsoll</b></td>
+                <td></td>
                 <td>${analysis.minTargetProjection?string["#,##0.00"]}&#160;&#8364;</td>
             </tr>
             <tr>
                 <td><b>Versorgungslücke</b></td>
+                <td></td>
                 <td>${analysis.gapProjection?string["#,##0.00"]}&#160;&#8364;</td>
             </tr>
             </tbody>

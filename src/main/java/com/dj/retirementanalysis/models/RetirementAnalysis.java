@@ -1,25 +1,23 @@
 package com.dj.retirementanalysis.models;
 
 import lombok.Getter;
-import lombok.Setter;
 
-@Setter
 @Getter
 public class RetirementAnalysis {
 
-    private int analysisYear;
-    private int projectionYear;
-    private double inflationRate = 0.02;
-    private double taxAndSocialDeductionRate = 0.25;
+    private final int analysisYear;
+    private final int projectionYear;
+    private final double inflationRate = 0.02;
+    private final double taxAndSocialDeductionRate = 0.25;
 
-    private double grossMonthlyIncome;   // Brutto / Monat
+    private final double grossMonthlyIncome;   // Brutto / Monat
     private double netMonthlyIncome;     // berechnet (ohne sonstige Einnahmen)
     private double targetValue;          // 80 % vom Netto
 
-    private double statutoryPension;     // Gesetzliche Rente
-    private double otherIncome;          // Sonstige Einnahmen
-    private double occupationalPension;  // Betriebliche & geförderte Vorsorge
-    private double privatePension;       // Private Vorsorge
+    private final double statutoryPension;     // Gesetzliche Rente
+    private final double otherIncome;          // Sonstige Einnahmen
+    private final double occupationalPension;  // Betriebliche & geförderte Vorsorge
+    private final double privatePension;       // Private Vorsorge
 
     private double statutoryPensionProjection;
     private double otherIncomeProjection;
@@ -52,7 +50,8 @@ public class RetirementAnalysis {
     }
 
     public void calculateTargetValue() {
-        this.targetValue = netMonthlyIncome * 0.8;
+//        this.targetValue = netMonthlyIncome * 0.8;
+        this.targetValue = netMonthlyIncome * 0.8 * (1 + taxAndSocialDeductionRate);
     }
 
     public void calculateProjections() {
@@ -67,7 +66,6 @@ public class RetirementAnalysis {
     }
 
     public void calculateGaps() {
-//        double reachedCurrent = statutoryPension + otherIncome + occupationalPension + privatePension;
         double reachedProjection = statutoryPensionProjection + otherIncomeProjection
                 + occupationalPensionProjection + privatePensionProjection;
 
