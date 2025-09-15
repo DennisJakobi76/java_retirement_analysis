@@ -15,17 +15,22 @@ import org.springframework.web.bind.annotation.GetMapping;
 import java.io.File;
 import java.io.OutputStream;
 import java.io.StringWriter;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
 @Controller
 public class RetirementAnalysisController {
 
-    private RetirementAnalysis analysis;
+    private final RetirementAnalysis analysisMaxMustermann;
+    private final RetirementAnalysis analysisMaximeMustermann;
+    private final List<RetirementAnalysis> analyses = new ArrayList<>();
 
     public RetirementAnalysisController() {
-        this.analysis = new RetirementAnalysis(
+        this.analysisMaxMustermann = new RetirementAnalysis(
+                "Max Mustermann",
                 2025, 2050,
                 4800,   // Brutto pro Monat
                 1450,   // gesetzliche Rente
@@ -33,21 +38,54 @@ public class RetirementAnalysisController {
                 400,    // betriebliche Vorsorge
                 250      // private Vorsorge
         );
-        this.analysis.calculateAll(12.41, 8, 21);
+        this.analysisMaxMustermann.calculateAll(12.41, 8, 21);
+
+        this.analysisMaximeMustermann = new RetirementAnalysis(
+                "Maxime Mustermann",
+                2025, 2050,
+                5300,   // Brutto pro Monat
+                1750,   // gesetzliche Rente
+                300,    // sonstige Einnahmen
+                500,    // betriebliche Vorsorge
+                400     // private Vorsorge
+        );
+        this.analysisMaximeMustermann.calculateAll(12.41, 8, 21);
+
+        analyses.add(analysisMaxMustermann);
+        analyses.add(analysisMaximeMustermann);
+
+        // Im Konstruktor nach den Einzelanalysen:
+        if (analyses.size() > 1) {
+            RetirementAnalysis combinedAnalysis = new RetirementAnalysis(
+                "Gemeinsamer Haushalt",
+                Math.min(analysisMaxMustermann.getAnalysisYear(), analysisMaximeMustermann.getAnalysisYear()),
+                Math.max(analysisMaxMustermann.getProjectionYear(), analysisMaximeMustermann.getProjectionYear()),
+                analysisMaxMustermann.getGrossMonthlyIncome() + analysisMaximeMustermann.getNetMonthlyIncome(),
+                analysisMaxMustermann.getStatutoryPension() + analysisMaximeMustermann.getStatutoryPension(),
+                analysisMaxMustermann.getOtherIncome() + analysisMaximeMustermann.getOtherIncome(),
+                analysisMaxMustermann.getOccupationalPension() + analysisMaximeMustermann.getOccupationalPension(),
+                analysisMaxMustermann.getPrivatePension() + analysisMaximeMustermann.getPrivatePension()
+            );
+            combinedAnalysis.calculateAll(12.41, 8, 21);
+            analyses.add(combinedAnalysis);
+        }
     }
 
     @GetMapping("/analysis")
     public String getAnalysis(Model model) throws Exception {
+        for (RetirementAnalysis analysis : analyses) {
+            File out = new File(analysis.getFilePath()+analysis.getChartPath());
+            ChartPngBuilder.buildPng(
+                    analysis.getStatutoryPension(), analysis.getOtherIncome(), analysis.getOccupationalPension(), analysis.getPrivatePension(),
+                    analysis.getStatutoryPensionProjection(), analysis.getOtherIncomeProjection(), analysis.getOccupationalPensionProjection(), analysis.getPrivatePensionProjection(),
+                    analysis.getNetMonthlyIncome(), analysis.getNetMonthlyIncomeProjection(),
+                    analysis.getTargetValueProjection(), analysis.getMinTargetProjection(),
+                    out
+            );
+        }
 
-        File out = new File("src/main/resources/static/chart.png");
-        ChartPngBuilder.buildPng(
-                analysis.getStatutoryPension(), analysis.getOtherIncome(), analysis.getOccupationalPension(), analysis.getPrivatePension(),
-                analysis.getStatutoryPensionProjection(), analysis.getOtherIncomeProjection(), analysis.getOccupationalPensionProjection(), analysis.getPrivatePensionProjection(),
-                analysis.getNetMonthlyIncome(), analysis.getNetMonthlyIncomeProjection(),
-                analysis.getTargetValueProjection(), analysis.getMinTargetProjection(),
-                out
-        );
-        model.addAttribute("analysis", analysis);
+
+        model.addAttribute("analyses", analyses);
         return "retirementanalysis"; // FTL
     }
 
@@ -59,7 +97,7 @@ public class RetirementAnalysisController {
     public void getAnalysisPdf(HttpServletResponse response) throws Exception {
 
         Map<String, Object> model = new HashMap<>();
-        model.put("analysis", analysis);
+        model.put("analysis", analysisMaxMustermann);
 
         Template template = freemarkerConfig.getTemplate("retirementanalysis.ftl");
         StringWriter stringWriter = new StringWriter();
