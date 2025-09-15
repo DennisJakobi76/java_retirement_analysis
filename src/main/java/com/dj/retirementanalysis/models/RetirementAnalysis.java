@@ -100,14 +100,4 @@ public class RetirementAnalysis {
         double factor = Math.pow(1 + inflationRate, years);
         return netMonthlyIncome * factor;
     }
-
-    public double getTotalCurrent() {
-        return statutoryPension + otherIncome + occupationalPension + privatePension;
-    }
-
-    public double getTotalProjection() {
-        return statutoryPensionProjection + otherIncomeProjection + occupationalPensionProjection + privatePensionProjection;
-    }
-
-
 }
