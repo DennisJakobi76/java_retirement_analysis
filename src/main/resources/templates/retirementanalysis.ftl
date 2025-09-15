@@ -4,134 +4,9 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>Auswertung Vorsorge</title>
     <link rel="icon" type="image/png" href="logo.png"/>
-    <style type="text/css">
-        body {
-            font-family: Helvetica, sans-serif;
-            margin: 20px;
-        }
+    <link rel="stylesheet" href="/css/style.css"/>
+    <link rel="stylesheet" href="classpath:/static/css/pdf_style.css"/>
 
-        header {
-            width: 100%;
-            border-bottom: 2px solid #ccc;
-            padding-bottom: 8px;
-            margin-bottom: 20px;
-        }
-
-        h1 {
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .content {
-            max-width: 90%;
-            margin: 40px auto;
-        }
-
-        table {
-            border-collapse: collapse;
-            width: 60%;
-            margin: 40px auto;
-            text-align: center;
-        }
-
-        th, td {
-            border: 1px solid #ccc;
-            padding: 6px;
-            text-align: center;
-        }
-
-        th {
-            background-color: #007bff;
-            color: #ffffff;
-        }
-
-        .text-container{
-            max-width: 60%;
-            margin: 0 auto 20px auto;
-            text-align: justify;
-        }
-
-        tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
-
-        .canvas-container {
-            width: 60%;
-            margin: 20px auto;
-            text-align: center;
-        }
-
-        img.chart {
-            max-width: 100%;
-            height: auto;
-            margin: 0 auto;
-            display: block;
-        }
-
-        @page {
-            size: A4 portrait;
-            margin: -15mm 8mm 8mm 8mm;
-        }
-
-        @media print {
-            body {
-                font-size: 13px;
-                margin: 0;
-                transform: scale(0.85);
-                transform-origin: top left;
-            }
-
-            header {
-                margin-bottom: 16px;
-                margin-top: 0;
-                padding-bottom: 4px;
-                padding-top: 0;
-            }
-
-            h1 {
-                font-size: 14pt;
-                margin-bottom: 12px;
-                margin-top: 24px;
-            }
-
-            p {
-                white-space: normal;
-                word-spacing: normal;
-            }
-
-            .content {
-                margin-top: 0;
-            }
-
-            .table-container,
-            .canvas-container,
-            .text-container {
-                width: 100%;
-                max-width: none;
-            }
-
-            table { width: 100%; }
-
-            .table-container {
-                margin: 0 auto;
-                padding-bottom: 1px;
-            }
-
-            .canvas-container {
-                margin: 0 auto 25px auto;
-                padding-top: 1px;
-                text-align: center;
-                overflow: hidden;
-            }
-
-            img.chart {
-                width: 100%;
-                height: auto;
-                display: block;
-                margin: 0 auto;
-            }
-        }
-    </style>
 </head>
 <body>
 
@@ -148,7 +23,7 @@
             <p>
                 Diese Auswertung wurde in Anlehnung an die DIN 77230 erstellt.
                 Im Diagramm sind zwei wichtige Referenzwerte dargestellt:
-                der empfohlene Richtwert, der bei etwa 80 % des letzten Nettoeinkommens liegt (blaue Linie),
+                der empfohlene Richtwert, der bei der Höhe des letzten Nettoeinkommens liegt (blaue Linie),
                 sowie der nach DIN 77230 berechnete Mindestsollwert, der sich am gesetzlichen Mindestlohn orientiert (gelbe Linie).
             </p>
             <p>
