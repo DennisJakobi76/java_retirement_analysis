@@ -15,10 +15,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import java.io.File;
 import java.io.OutputStream;
 import java.io.StringWriter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.*;
 
 
 @Controller
@@ -100,31 +100,6 @@ public class RetirementAnalysisController {
     @Autowired
     private freemarker.template.Configuration freemarkerConfig;
 
-//    @GetMapping("/analysis/pdf")
-//    public void getAnalysisPdf(HttpServletResponse response) throws Exception {
-//
-//        Map<String, Object> model = new HashMap<>();
-//        model.put("analysis", analysisMaxMustermann);
-//
-//        Template template = freemarkerConfig.getTemplate("retirementanalysis.ftl");
-//        StringWriter stringWriter = new StringWriter();
-//        template.process(model, stringWriter);
-//        String html = stringWriter.toString();
-//
-//        response.setContentType("application/pdf");
-//        response.setHeader("Content-Disposition", "inline; filename=auswertung_vorsorge.pdf");
-//
-//        try (OutputStream os = response.getOutputStream()) {
-//            PdfRendererBuilder builder = new PdfRendererBuilder();
-//            builder.useFastMode();
-//
-//            String baseUrl = new File("src/main/resources/static/").toURI().toURL().toString();
-//            builder.withHtmlContent(html, baseUrl);
-//
-//            builder.toStream(os);
-//            builder.run();
-//        }
-// }
     @GetMapping("/analysis/pdf")
     public void getAnalysisPdf(HttpServletResponse response) throws Exception {
         Map<String, Object> model = new HashMap<>();
@@ -148,5 +123,8 @@ public class RetirementAnalysisController {
             builder.toStream(os);
             builder.run();
         }
+
+
+
     }
 }
