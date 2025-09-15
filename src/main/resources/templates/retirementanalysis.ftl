@@ -152,7 +152,7 @@
             sowie der nach DIN 77230 berechnete Mindestsollwert, der sich am gesetzlichen Mindestlohn orientiert (gelbe Linie).
         </p>
         <p>
-            Die Hochrechnung berücksichtigt die Entwicklung bis zum Jahr ${analysis.projectionYear}
+            Die Hochrechnung berücksichtigt die Entwicklung bis zum Jahr ${analysis.projectionYear?string["0"]}
             unter Annahme einer jährlichen Inflationsrate von ${(analysis.inflationRate * 100)?string["0.##"]}%.
             Dabei werden die einzelnen Vorsorgebausteine – gesetzliche Rente, sonstige Einnahmen,
             betriebliche sowie private Vorsorge – ausgewertet.
@@ -165,10 +165,10 @@
             <tr>
                 <th>Vorsorgequelle</th>
                 <th>
-                    Bereits erreicht ${analysis.analysisYear}<br/> (&#8364;/Monat)
+                    Bereits erreicht ${analysis.analysisYear?string["0"]}<br/> (&#8364;/Monat)
                 </th>
                 <th>
-                    Projektion ${analysis.projectionYear}<br/> (&#8364;/Monat)
+                    Projektion ${analysis.projectionYear?string["0"]}<br/> (&#8364;/Monat)
                 </th>
             </tr>
             </thead>
@@ -231,8 +231,8 @@
             Aus der Gegenüberstellung ergibt sich eine Versorgungslücke:
             Trotz solider Basis durch die gesetzliche Rente und sonstige Einnahmen reichen die betrieblichen
             und privaten Vorsorgeleistungen aktuell nicht aus, um den Richtwert vollständig zu erreichen.
-            Die Lücke beträgt im Jahr ${analysis.analysisYear} rund ${analysis.gapCurrent?string["#,##0"]}&#8239;&#8364;,
-            im Jahr ${analysis.projectionYear} – inflationsbedingt – etwa ${analysis.gapProjection?string["#,##0"]}&#8239;&#8364;.
+            Die Lücke beträgt im Jahr ${analysis.analysisYear?string["0"]} rund ${analysis.gapCurrent?string["#,##0"]}&#8239;&#8364;,
+            im Jahr ${analysis.projectionYear?string["0"]} – inflationsbedingt – etwa ${analysis.gapProjection?string["#,##0"]}&#8239;&#8364;.
             Eine gezielte Stärkung der betrieblichen und privaten Vorsorge ist daher empfehlenswert.
         </p>
 
