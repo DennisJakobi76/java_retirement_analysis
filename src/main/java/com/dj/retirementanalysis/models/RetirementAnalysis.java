@@ -27,10 +27,8 @@ public class RetirementAnalysis {
     private double privatePensionProjection;
     private double targetValueProjection;
 
-    private double gapCurrent;
     private double gapProjection;
 
-    private double minTargetCurrent;
     private double minTargetProjection;
 
     public RetirementAnalysis(int analysisYear,
@@ -69,11 +67,10 @@ public class RetirementAnalysis {
     }
 
     public void calculateGaps() {
-        double reachedCurrent = statutoryPension + otherIncome + occupationalPension + privatePension;
+//        double reachedCurrent = statutoryPension + otherIncome + occupationalPension + privatePension;
         double reachedProjection = statutoryPensionProjection + otherIncomeProjection
                 + occupationalPensionProjection + privatePensionProjection;
 
-        this.gapCurrent = targetValue - reachedCurrent;
         this.gapProjection = targetValueProjection - reachedProjection;
     }
 
@@ -82,7 +79,6 @@ public class RetirementAnalysis {
         int years = projectionYear - analysisYear;
         double factor = Math.pow(1 + inflationRate, years);
 
-        this.minTargetCurrent = base;
         this.minTargetProjection = base * factor;
     }
 
