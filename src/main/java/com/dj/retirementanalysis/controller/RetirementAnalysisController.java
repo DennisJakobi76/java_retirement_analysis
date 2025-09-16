@@ -27,23 +27,25 @@ public class RetirementAnalysisController {
 
         RetirementAnalysis analysisMaxMustermann = new RetirementAnalysis(
                 "Max Mustermann",
-                2025, 2050,
+                2025,
+                2050,
                 4800,   // Brutto pro Monat
-                1450,   // gesetzliche Rente
-                540,    // sonstige Einnahmen
-                400,    // betriebliche Vorsorge
-                250      // private Vorsorge
+                1450,                   // gesetzliche Rente
+                540,                    // sonstige Einnahmen
+                400,                    // betriebliche Vorsorge
+                250                     // private Vorsorge
         );
         analysisMaxMustermann.calculateAll(12.41, 8, 21);
 
         RetirementAnalysis analysisMaximeMustermann = new RetirementAnalysis(
                 "Maxime Mustermann",
-                2025, 2050,
-                5300,   // Brutto pro Monat
-                1750,   // gesetzliche Rente
-                300,    // sonstige Einnahmen
-                500,    // betriebliche Vorsorge
-                400     // private Vorsorge
+                2025,
+                2050,
+                5300,  // Brutto pro Monat
+                1750,                   // gesetzliche Rente
+                300,                    // sonstige Einnahmen
+                500,                    // betriebliche Vorsorge
+                400                     // private Vorsorge
         );
         analysisMaximeMustermann.calculateAll(12.41, 8, 21);
 
