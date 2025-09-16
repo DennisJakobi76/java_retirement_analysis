@@ -10,11 +10,12 @@
 </head>
 <body>
 
-<header>
-    <img src="logo.png" alt="Logo" height="50"/>
-</header>
+
 
 <#list analyses as analysis>
+    <header>
+        <img src="logo.png" alt="Logo" height="50"/>
+    </header>
 
     <h1>Auswertung Altersvorsorge für ${analysis.name}</h1>
 
@@ -113,10 +114,12 @@
     </div>
 
     <#if analysis_has_next>
-        <hr style="margin:40px 0; border:1px solid #ccc;"/>
+
+        <div class="page-break"></div>
     </#if>
 
 </#list>
+
 
 </body>
 </html>
