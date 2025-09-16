@@ -99,7 +99,7 @@
         </div>
 
         <div class="canvas-container">
-            <img class="chart" src="${analysis.chartPath}" alt="Diagramm Altersvorsorge"/>
+            <img class="chart" src="${analysis.chartImgName}" alt="Diagramm Altersvorsorge"/>
         </div>
 
         <div class="text-container">
@@ -114,7 +114,6 @@
     </div>
 
     <#if analysis_has_next>
-
         <div class="page-break"></div>
     </#if>
 
