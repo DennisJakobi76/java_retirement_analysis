@@ -78,7 +78,7 @@ public class RetirementAnalysisController {
     @GetMapping("/analysis")
     public String getAnalysis(Model model) throws Exception {
         for (RetirementAnalysis analysis : analyses) {
-            File out = new File(analysis.getFilePath()+analysis.getChartPath());
+            File out = new File(analysis.getFilePath()+analysis.getChartImgName());
             ChartPngBuilder.buildPng(
                     analysis.getStatutoryPension(), analysis.getOtherIncome(), analysis.getOccupationalPension(), analysis.getPrivatePension(),
                     analysis.getStatutoryPensionProjection(), analysis.getOtherIncomeProjection(), analysis.getOccupationalPensionProjection(), analysis.getPrivatePensionProjection(),

@@ -7,7 +7,7 @@ public class RetirementAnalysis {
 
     private final String name;
     private final String filePath="src/main/resources/static/";
-    private final String chartPath;
+    private final String chartImgName;
     private final int analysisYear;
     private final int projectionYear;
     private final double inflationRate = 0.02;
@@ -42,7 +42,7 @@ public class RetirementAnalysis {
                               double occupationalPension,
                               double privatePension) {
         this.name = name;
-        this.chartPath = name.toLowerCase().replace(" ","_")+"_chart.png";
+        this.chartImgName = name.toLowerCase().replace(" ","_")+"_chart.png";
         this.analysisYear = analysisYear;
         this.projectionYear = projectionYear;
         this.grossMonthlyIncome = grossMonthlyIncome;
