@@ -53,8 +53,7 @@ public class CustomStackedBarRenderer extends StackedBarRenderer {
 
         if (pass == 1 && row == dataset.getRowCount() - 1) {
             Comparable<?> colKey = dataset.getColumnKey(column);
-
-            // Kategorie-Geometrie ermitteln
+            
             double catStart = domainAxis.getCategoryStart(column, dataset.getColumnCount(), dataArea, plot.getDomainAxisEdge());
             double catEnd   = domainAxis.getCategoryEnd(column, dataset.getColumnCount(), dataArea, plot.getDomainAxisEdge());
             double catWidth = catEnd - catStart;
