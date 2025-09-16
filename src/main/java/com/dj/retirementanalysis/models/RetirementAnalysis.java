@@ -13,14 +13,14 @@ public class RetirementAnalysis {
     private final double inflationRate = 0.02;
     private final double taxAndSocialDeductionRate = 0.25;
 
-    private final double grossMonthlyIncome;   // Brutto / Monat
-    private double netMonthlyIncome;     // berechnet (ohne sonstige Einnahmen)
-    private double targetValue;          // 80 % vom Netto
+    private final double grossMonthlyIncome;    // Brutto / Monat
+    private double netMonthlyIncome;            // berechnet (ohne sonstige Einnahmen)
+    private double targetValue;                 // 80 % vom Netto plus 25% Abzüge (also: Netto)
 
-    private final double statutoryPension;     // Gesetzliche Rente
-    private final double otherIncome;          // Sonstige Einnahmen
-    private final double occupationalPension;  // Betriebliche & geförderte Vorsorge
-    private final double privatePension;       // Private Vorsorge
+    private final double statutoryPension;      // Gesetzliche Rente
+    private final double otherIncome;           // Sonstige Einnahmen
+    private final double occupationalPension;   // Betriebliche & geförderte Vorsorge
+    private final double privatePension;        // Private Vorsorge
 
     private double statutoryPensionProjection;
     private double otherIncomeProjection;
