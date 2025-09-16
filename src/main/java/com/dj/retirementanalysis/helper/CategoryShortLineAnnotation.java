@@ -29,12 +29,12 @@ public class CategoryShortLineAnnotation implements CategoryAnnotation {
 
     @Override
     public void addChangeListener(AnnotationChangeListener listener) {
-        // keine Listener-Unterstützung nötig
+        // not needed
     }
 
     @Override
     public void removeChangeListener(AnnotationChangeListener listener) {
-        // keine Listener-Unterstützung nötig
+        // not needed
     }
 
 
