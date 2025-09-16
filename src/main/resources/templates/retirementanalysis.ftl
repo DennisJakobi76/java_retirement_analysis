@@ -10,8 +10,6 @@
 </head>
 <body>
 
-
-
 <#list analyses as analysis>
     <header>
         <img src="logo.png" alt="Logo" height="50"/>
@@ -118,7 +116,6 @@
     </#if>
 
 </#list>
-
 
 </body>
 </html>
