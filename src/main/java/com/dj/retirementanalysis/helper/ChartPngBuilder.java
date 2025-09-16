@@ -1,19 +1,19 @@
 package com.dj.retirementanalysis.helper;
 
 import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartUtils;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.NumberAxis;
+import org.jfree.chart.labels.ItemLabelAnchor;
+import org.jfree.chart.labels.ItemLabelPosition;
 import org.jfree.chart.plot.CategoryPlot;
-import org.jfree.chart.renderer.category.StackedBarRenderer;
 import org.jfree.chart.ui.RectangleInsets;
-import org.jfree.chart.ChartUtils;
-import org.jfree.data.category.DefaultCategoryDataset;
-import org.jfree.chart.annotations.CategoryTextAnnotation;
 import org.jfree.chart.ui.TextAnchor;
+import org.jfree.chart.annotations.CategoryTextAnnotation;
+import org.jfree.data.category.DefaultCategoryDataset;
 
 import java.awt.*;
 import java.io.File;
-
 
 public class ChartPngBuilder {
 
@@ -53,10 +53,12 @@ public class ChartPngBuilder {
         );
 
         CategoryPlot plot = chart.getCategoryPlot();
-        StackedBarRenderer r = (StackedBarRenderer) plot.getRenderer();
+
+        CustomStackedBarRenderer r = new CustomStackedBarRenderer();
+        plot.setRenderer(r);
+
         r.setBarPainter(new org.jfree.chart.renderer.category.StandardBarPainter()); // flat
         r.setShadowVisible(false);
-        r.setDefaultItemLabelsVisible(false);
         r.setDrawBarOutline(false);
 
         double total2025 = sum25 + cap25;
@@ -67,10 +69,7 @@ public class ChartPngBuilder {
         r.setDefaultItemLabelFont(new Font("SansSerif", Font.PLAIN, 12));
         r.setDefaultItemLabelPaint(Color.BLACK);
         r.setDefaultPositiveItemLabelPosition(
-                new org.jfree.chart.labels.ItemLabelPosition(
-                        org.jfree.chart.labels.ItemLabelAnchor.CENTER,
-                        org.jfree.chart.ui.TextAnchor.CENTER
-                )
+                new ItemLabelPosition(ItemLabelAnchor.CENTER, TextAnchor.CENTER)
         );
 
         r.setSeriesPaint(bars.getRowIndex("Gesetzliche Rente"), new Color(44, 160, 44));
@@ -91,18 +90,9 @@ public class ChartPngBuilder {
 
         BasicStroke solid2 = new BasicStroke(2f);
 
-//        plot.addAnnotation(new CategoryShortLineAnnotation(J2025, richt25, new Color(25,118,210), solid2, 1.16));
-        plot.addAnnotation(new CategoryShortLineAnnotation(J2050, richt50, new Color(25,118,210), solid2, 1.16));
-
-//        plot.addAnnotation(new CategoryShortLineAnnotation(J2025, mind25, new Color(253,216,53), solid2, 1.16));
-        plot.addAnnotation(new CategoryShortLineAnnotation(J2050, mind50, new Color(253,216,53), solid2, 1.16));
-
-//        String gap2025Label = "Lücke: " + (int)(richt25 - sum25) + " €";
-//        CategoryTextAnnotation gapAnno2025 =
-//                new CategoryTextAnnotation(gap2025Label, J2025, richt25 - 1);
-//        gapAnno2025.setFont(new Font("SansSerif", Font.BOLD, 12));
-//        gapAnno2025.setTextAnchor(TextAnchor.TOP_CENTER);
-//        plot.addAnnotation(gapAnno2025);
+        double widthFactor = 1.16;
+        r.addCategoryLine(J2050, richt50, new Color(25,118,210), solid2, widthFactor);
+        r.addCategoryLine(J2050, mind50,  new Color(253,216,53), solid2, widthFactor);
 
         String gap2050Label = "Lücke: " + (int)(richt50 - sum50) + " €";
         CategoryTextAnnotation gapAnno2050 =
