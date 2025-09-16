@@ -24,11 +24,7 @@ public class RetirementAnalysisController {
     private final List<RetirementAnalysis> analyses = new ArrayList<>();
 
     public RetirementAnalysisController() {
-        // Brutto pro Monat
-        // gesetzliche Rente
-        // sonstige Einnahmen
-        // betriebliche Vorsorge
-        // private Vorsorge
+
         RetirementAnalysis analysisMaxMustermann = new RetirementAnalysis(
                 "Max Mustermann",
                 2025, 2050,
@@ -40,11 +36,6 @@ public class RetirementAnalysisController {
         );
         analysisMaxMustermann.calculateAll(12.41, 8, 21);
 
-        // Brutto pro Monat
-        // gesetzliche Rente
-        // sonstige Einnahmen
-        // betriebliche Vorsorge
-        // private Vorsorge
         RetirementAnalysis analysisMaximeMustermann = new RetirementAnalysis(
                 "Maxime Mustermann",
                 2025, 2050,
@@ -88,7 +79,6 @@ public class RetirementAnalysisController {
             );
         }
 
-
         model.addAttribute("analyses", analyses);
         return "retirementanalysis"; // FTL
     }
@@ -120,8 +110,5 @@ public class RetirementAnalysisController {
             builder.toStream(os);
             builder.run();
         }
-
-
-
     }
 }
