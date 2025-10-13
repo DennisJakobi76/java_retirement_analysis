@@ -82,7 +82,7 @@ public class RetirementAnalysisController {
         }
 
         model.addAttribute("analyses", analyses);
-        return "retirementanalysis"; // FTL
+        return "retirementanalysis";
     }
 
 
