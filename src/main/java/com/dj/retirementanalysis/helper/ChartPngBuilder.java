@@ -57,7 +57,7 @@ public class ChartPngBuilder {
         CustomStackedBarRenderer r = new CustomStackedBarRenderer();
         plot.setRenderer(r);
 
-        r.setBarPainter(new org.jfree.chart.renderer.category.StandardBarPainter()); // flat
+        r.setBarPainter(new org.jfree.chart.renderer.category.StandardBarPainter());
         r.setShadowVisible(false);
         r.setDrawBarOutline(false);
 

@@ -78,7 +78,7 @@
                     <td>${analysis.netMonthlyIncomeProjection?string["#,##0.00"]}&#160;&#8364;</td>
                 </tr>
                 <tr>
-                    <td><b>Richtwert (80% Netto)</b></td>
+                    <td><b>Richtwert (80% Netto + 25% Vorsorgeaufschlag)</b></td>
                     <td></td>
                     <td>${analysis.targetValueProjection?string["#,##0.00"]}&#160;&#8364;</td>
                 </tr>
